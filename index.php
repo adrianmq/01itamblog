@@ -7,7 +7,7 @@
 
   session_start();
 
-  define("BASE_URL", "https://web-6-siitwebcluj.c9users.io/curs25/blog/");
+  define("BASE_URL", "https://siitamblog-adrianmq.c9users.io/");
   define('VIEWS', 'app/views/'); // constants name with CAPS LOCK
   define('MODELS', 'app/models/'); // constants name with CAPS LOCK
   define('CONTROLLERS', 'app/controllers/'); // constants name with CAPS LOCK
@@ -32,13 +32,16 @@
 
     // different methods request dependent ex: index_GET
     $req_dep_method = $controller['method'] . '_' . $_SERVER['REQUEST_METHOD'];
+    
     // check if request dependent method exists
     if(method_exists($obj, $req_dep_method)){
+
       // call request dependent method
       $obj->$req_dep_method();
     }
     // look for basis method
     elseif(method_exists($obj, $controller['method'])){
+      
       // call method
       $obj->$controller['method']();
     } 

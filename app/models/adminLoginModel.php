@@ -12,10 +12,10 @@ class AdminLoginModel extends DB {
     $adminData = $sth->fetch(PDO::FETCH_ASSOC);
 
     if(!$adminData) {
-        return [
-          'loginStatus' => -1,
-          'message'     => 'Invalid email address provided!'
-        ];
+      return [
+        'loginStatus' => -1,
+        'message'     => 'Invalid email address provided!'
+      ];
     }
     else {
       $dbPassword = $adminData['password'];

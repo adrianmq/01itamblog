@@ -1,4 +1,5 @@
 /*global $*/
+var BASE_URL = 'https://siitamblog-adrianmq.c9users.io';
 var authAttempts = 0;
 
 $(document).ready(function(){
@@ -18,7 +19,7 @@ $(document).ready(function(){
 });
 
 function authenticate(emailValue, passwordValue) {
-  var urlToCall = 'https://web6-adrianmatei-adrianmq.c9users.io/blog/admin/login';
+  var urlToCall = BASE_URL + '/admin/login';
   var method = 'POST';
   var params = `email=${emailValue}&password=${passwordValue}`;
   
@@ -52,7 +53,7 @@ function authenticate(emailValue, passwordValue) {
         console.log(window.location.href);
         console.log(window.location.pathname);
         console.log(window.location.host);
-        window.location.pathname = '/blog/admin';
+        window.location.pathname = '/admin';
       }
     }
   };

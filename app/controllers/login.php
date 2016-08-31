@@ -3,16 +3,19 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST');  
 
 class Login {
-  public function index_POST() {
+  
+  function index_POST() {
     // header("Content-Type: application/json; charset=utf-8"); // not required because defined in xhr request
     // clean output buffer so the JSON response can be easily distinguished
     ob_clean();
+
     // send response with error if one input field is empty
     if ( empty($_POST['email']) || empty($_POST['password']) ) {
       // set code for partial content
       http_response_code(206);
       sendResponseToJSON(array('warning'=>'Incomplete data'));
     }
+
     elseif ( !empty($_POST['email']) && !empty($_POST['password']) ) {
       require MODELS . "adminLoginModel.php";
 
@@ -20,23 +23,25 @@ class Login {
       $result = $adminLoginModel->checkCredentials($_POST);
 
       if( !$result['loginStatus'] ) {
+        
         http_response_code(401); // unauthorized
         sendResponseToJSON($result);
       }
       elseif( $result['loginStatus'] == -1 ) {
+        
         http_response_code(400); // bad request
         sendResponseToJSON($result);
       }
       else {
         $_SESSION['isLogged'] = TRUE;
-
+        
         http_response_code(200);
         sendResponseToJSON(array('success'=>'Logged in successfully'));
       }
     }
   }
   
-  public function index_GET() {
+  function index_GET() {
     $this->adminIsLogged();
 
     if(isset($_SESSION['activePage']) && $_SESSION['activePage'] != 'login') {
@@ -49,7 +54,7 @@ class Login {
     $_SESSION['activePage'] = 'login'; // set active page as login
   }
   
-  public function logout() {
+  function logout() {
     // unset variable so that it's not available anymore for validation
     unset($_SESSION['isLogged']);
     session_destroy(); // will be done only after refresh, browser render
