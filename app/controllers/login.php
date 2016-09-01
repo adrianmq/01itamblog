@@ -15,7 +15,7 @@ class Login {
       http_response_code(206);
       sendResponseToJSON(array('warning'=>'Incomplete data'));
     }
-
+    // proceed with credential check
     elseif ( !empty($_POST['email']) && !empty($_POST['password']) ) {
       require MODELS . "adminLoginModel.php";
 
@@ -23,13 +23,13 @@ class Login {
       $result = $adminLoginModel->checkCredentials($_POST);
 
       if( !$result['loginStatus'] ) {
-        
-        http_response_code(401); // unauthorized
+        // unauthorized
+        http_response_code(401);
         sendResponseToJSON($result);
       }
       elseif( $result['loginStatus'] == -1 ) {
-        
-        http_response_code(400); // bad request
+        // bad request
+        http_response_code(400);
         sendResponseToJSON($result);
       }
       else {

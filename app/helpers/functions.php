@@ -26,9 +26,47 @@ function pathToRoot($path){
 // attempt to send response data
 function sendResponseToJSON($response) {
   try {
-     $res = json_encode($response);
+    $res = json_encode($response);
   } catch(Exception $e) {
-     $res = json_encode(array("error"=>"Invalid response")); 
+    $res = json_encode(array("error"=>"Invalid response")); 
   }
   die($res);
+}
+
+// attempt to send response data
+function jsonResponse($code = 200, $message) {
+  // clean output buffer so the JSON response can be easily distinguished
+  ob_clean();
+  // clear the old headers
+  header_remove();
+  // set the actual code
+  http_response_code($code);
+  // set the header to make sure cache is forced
+  header("Cache-Control: no-transform, public, max-age=300, s-maxage=900");
+  // treat this as json
+  header('Content-Type: application/json');
+  // ok, validation error, or failure
+  header('Status: '.$status[$code]);
+
+  $status = array(
+    200 => '200 OK',
+    206 => '206 Partial Content',
+    400 => '400 Bad Request',
+    401 => '401 Unauthorized',
+    405 => '405 Method not allowed',
+    500 => '500 Internal Server Error'
+    );
+
+  if( !$message ) { $message = $status[$code]; }
+
+  // return the encoded json
+  try {
+    $res = json_encode(array(
+      'status' => $code,
+      'message'=> $message
+      ));
+  } catch(Exception $e) {
+    $res = json_encode(array("error"=>"Invalid response")); 
+  }
+  return $res;
 }
