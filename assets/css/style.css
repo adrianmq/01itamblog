@@ -1,6 +1,6 @@
-body {
-  background-color: gray;
-}
+/*body {*/
+/*  background-color: gray;*/
+/*}*/
 
 .wrapper-320 {
   width: 320px;
@@ -13,4 +13,87 @@ body {
   padding: 5px;
   text-align: center;
   margin: auto;
+}
+
+form{
+  display: block;
+  margin: 10px auto 0;
+  height: 300px;
+  width: 300px;
+}
+
+input{
+  margin: 10px auto 0;
+  height: 25px;
+  width: 250px;
+}
+
+#admin-login{
+  margin: 10px auto 0;
+  height: 25px;
+  width: 250px;
+}
+
+.after-input{
+  float: right;
+  position: relative;
+  margin: 10px 1px 1px 1px;
+}
+
+.input-error{
+  display: block;
+  margin: 1px 5px;
+  height: 5px;
+  width: 250px;
+  font-family: "Times New Roman";
+  font-size: 50%;
+  font-style: normal;
+  color: red;
+}
+
+.hide{
+  visibility: hidden;
+}
+
+.show{
+  visibility: visible;
+}
+
+.red-border{
+  border-bottom-width: medium;
+  border-bottom-style: solid;
+  border-bottom-color: red;
+}
+
+.green-border{
+  border-bottom-width: medium;
+  border-bottom-style: solid;
+  border-bottom-color: green;
+}
+
+.tooltip {
+  height:24px;
+  width:24px;
+}
+
+.visible-icon {
+  /*background-image:url('https://siitamblog-adrianmq.c9users.io/assets/img/information-icon.png');*/
+  background-image:url('https://siitamblog-adrianmq.c9users.io/assets/img/info-icon.png');
+  background-size:24px 24px;
+  background-repeat:no-repeat;
+  height:100%;
+  width:100%;
+}
+
+.info {
+  visibility:hidden;
+  position:absolute;
+  background-color:lightgrey;
+  left:25px;
+  top:1px;
+  min-height:10px;
+  min-width:150px;
+  font-family: "Times New Roman";
+  font-size: 70%;
+  font-style: normal;
 }

@@ -11,6 +11,7 @@
   define('VIEWS', 'app/views/'); // constants name with CAPS LOCK
   define('MODELS', 'app/models/'); // constants name with CAPS LOCK
   define('CONTROLLERS', 'app/controllers/'); // constants name with CAPS LOCK
+  define('IMG', 'assets/img/');
   define('CSS', 'assets/css/');
   define('JS', 'assets/js/');
 

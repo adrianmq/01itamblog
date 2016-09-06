@@ -53,6 +53,7 @@ function jsonResponse($code = 200, $message) {
     206 => '206 Partial Content',
     400 => '400 Bad Request',
     401 => '401 Unauthorized',
+    403 => '403 Forbidden',
     405 => '405 Method not allowed',
     500 => '500 Internal Server Error'
     );

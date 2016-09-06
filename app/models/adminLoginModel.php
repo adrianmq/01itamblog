@@ -13,8 +13,8 @@ class AdminLoginModel extends DB {
 
     if(!$adminData) {
       return [
-        'loginStatus' => -1,
-        'message'     => 'Invalid email address provided!'
+        'loginStatus' => 0,
+        'message'     => 'Invalid email address or password provided!'
       ];
     }
     else {
@@ -23,7 +23,7 @@ class AdminLoginModel extends DB {
       if( $formData['password'] != $dbPassword ) {
         return [
           'loginStatus' => 0,
-          'message'     => 'Invalid password provided!'
+          'message'     => 'Invalid email address or password provided!'
         ];
       }
       else {

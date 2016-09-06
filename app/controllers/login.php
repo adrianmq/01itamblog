@@ -13,7 +13,7 @@ class Login {
     if ( empty($_POST['email']) || empty($_POST['password']) ) {
       // set code for partial content
       http_response_code(206);
-      sendResponseToJSON(array('warning'=>'Incomplete data'));
+      sendResponseToJSON(array('message'=>'Missing data'));
     }
     // proceed with credential check
     elseif ( !empty($_POST['email']) && !empty($_POST['password']) ) {
@@ -23,13 +23,8 @@ class Login {
       $result = $adminLoginModel->checkCredentials($_POST);
 
       if( !$result['loginStatus'] ) {
-        // unauthorized
-        http_response_code(401);
-        sendResponseToJSON($result);
-      }
-      elseif( $result['loginStatus'] == -1 ) {
-        // bad request
-        http_response_code(400);
+        // forbidden
+        http_response_code(403);
         sendResponseToJSON($result);
       }
       else {
