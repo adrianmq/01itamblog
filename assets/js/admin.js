@@ -17,35 +17,21 @@ $(document).ready(function(){
     var emailValue = $formEmail.val();
     var passwordValue = $formPassword.val();
 
-    console.log($form);
-    console.log($form[0].children);
-    console.log($form.children("input"));
-    console.log($form.children());
-    // console.log($formEmail);
+    $form.children('input').map(function(){
+      var $this = $(this),
+          $inputType = this.type,
+          $inputError = $this.next().next();
 
-    if( !emailValue ){
-      // build error message and make it visible
-      removeClassIfExists($formEmail, 'green-border');
-      $formEmail.addClass('red-border');
-      
-      var $inputError = $formEmail.siblings(`li#email-error`);
-
-      removeClassIfExists($inputError, 'hide');
-      
-      $inputError.html('Email required').addClass('show');
-    }
-
-    if( !passwordValue ){
-      // build error message and make it visible
-      removeClassIfExists($formEmail, 'green-border');
-      $formPassword.addClass('red-border');
-      
-      var $inputError = $formPassword.siblings(`li#pass-error`);
-
-      removeClassIfExists($inputError, 'hide');
-      
-      $inputError.html('Password required').addClass('show');
-    }
+      if( ! $this.val() ){
+        // build error message and make it visible
+        removeClassIfExists($this, 'green-border');
+        $this.addClass('red-border');
+        
+        removeClassIfExists($inputError, 'hide');
+        
+        $inputError.html($inputType[0].toUpperCase() + $inputType.slice(1) + ' required').addClass('show');
+      }
+    })
 
     // authenticate(emailValue, passwordValue);
     var xmlHttpResult = authenticate(emailValue, passwordValue);
