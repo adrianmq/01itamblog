@@ -10,7 +10,33 @@ $(document).ready(function(){
   var $formEmail = $($formChildren['email']);
   var $formPassword = $($formChildren['password']);
   var $loginButton = $($formChildren['admin-login']);
+  
+  var infoMsgData = {
+    email: 'siit_web6@grr.la',
+    password: 'siit1234!'
+  };
+  // implement tooltip independently over each info-icon
+  $.each($('.after-input'), function(index, domElem){
+    // store jquery elem inside varibles
+    var $jqueryInput = $(domElem);
+    var inpName = $jqueryInput.prev().attr('name');
 
+    var $infoIcon = $(domElem.children[0]);
+    var $infoMsgRef = $(domElem.children[1]);
+
+    // build info message
+    $infoMsgRef.text(infoMsgData[inpName]);
+
+    $infoIcon.on("mouseover",function(){
+      $infoMsgRef.css('visibility', 'visible');
+    })
+  
+    $infoIcon.on("mouseout",function(){
+      $infoMsgRef.css('visibility', 'hidden');
+    })
+  })
+
+  // listen to login button
   $loginButton.on('click', function() {
     event.preventDefault();
 
@@ -23,43 +49,47 @@ $(document).ready(function(){
           $inputError = $this.next().next();
 
       if( ! $this.val() ){
-        // build error message and make it visible
         removeClassIfExists($this, 'green-border');
         $this.addClass('red-border');
         
         removeClassIfExists($inputError, 'hide');
         
+        // build error message and make it visible
         $inputError.html($inputType[0].toUpperCase() + $inputType.slice(1) + ' required').addClass('show');
+      }
+      else {
+        removeClassIfExists($this, 'red-border');
+        
+        // authenticate(emailValue, passwordValue);
+        var xmlHttpResult = authenticate(emailValue, passwordValue);
+        
+        // handle response
+        xmlHttpResult.onreadystatechange = function() {
+          if ( xmlHttpResult.readyState == 4 ) {
+            if ( xmlHttpResult.status == 206 ) {
+              var resp = xmlHttpResult.response;
+              console.log(resp);
+              console.log(resp['message']);
+            }
+            else if ( xmlHttpResult.status == 403 ){
+              console.log(xmlHttpResult.status);
+              console.log(xmlHttpResult.response);
+            }
+            else {
+              // redirect to admin page
+              console.log(xmlHttpResult.status);
+              console.log(xmlHttpResult.response);
+              console.log(window.location.href);
+              console.log(window.location.pathname);
+              console.log(window.location.host);
+              // window.location.pathname = '/admin';
+            }
+          }
+        };
       }
     })
 
-    // authenticate(emailValue, passwordValue);
-    var xmlHttpResult = authenticate(emailValue, passwordValue);
-    
-    // handle response
-    xmlHttpResult.onreadystatechange = function() {
-      if ( xmlHttpResult.readyState == 4 ) {
-        if ( xmlHttpResult.status == 206 ) {
-          var resp = xmlHttpResult.response;
-          console.log(resp);
-          console.log(resp['message']);
-        }
-        else if ( xmlHttpResult.status == 403 ){
-          console.log(xmlHttpResult.status);
-          console.log(xmlHttpResult.response);
-        }
-        else {
-          // redirect to admin page
-          console.log(xmlHttpResult.status);
-          console.log(xmlHttpResult.response);
-          console.log(window.location.href);
-          console.log(window.location.pathname);
-          console.log(window.location.host);
-          // window.location.pathname = '/admin';
-        }
-      }
-    };
-    
+
   })
 });
 
