@@ -7,35 +7,20 @@ $(document).ready(function(){
   var $form = $('[data-id="admin-login-form"]');
   var $formChildren = $form[0].children;
 
+  // grab children after name || type || id
   var $formEmail = $($formChildren['email']);
   var $formPassword = $($formChildren['password']);
   var $loginButton = $($formChildren['admin-login']);
   
-  var infoMsgData = {
+  // to decide when to enable tooltip
+  enableTooltip($('.after-input'), {
     email: 'siit_web6@grr.la',
     password: 'siit1234!'
-  };
-  // implement tooltip independently over each info-icon
-  $.each($('.after-input'), function(index, domElem){
-    // store jquery elem inside varibles
-    var $jqueryInput = $(domElem);
-    var inpName = $jqueryInput.prev().attr('name');
+  });
 
-    var $infoIcon = $(domElem.children[0]);
-    var $infoMsgRef = $(domElem.children[1]);
-
-    // build info message
-    $infoMsgRef.text(infoMsgData[inpName]);
-
-    $infoIcon.on("mouseover",function(){
-      $infoMsgRef.css('visibility', 'visible');
-    })
+  console.log($form.children().first().attr('name'));
+  console.log($form.children().first().is('input'));
   
-    $infoIcon.on("mouseout",function(){
-      $infoMsgRef.css('visibility', 'hidden');
-    })
-  })
-
   // listen to login button
   $loginButton.on('click', function() {
     event.preventDefault();
@@ -43,53 +28,41 @@ $(document).ready(function(){
     var emailValue = $formEmail.val();
     var passwordValue = $formPassword.val();
 
-    $form.children('input').map(function(){
-      var $this = $(this),
-          $inputType = this.type,
-          $inputError = $this.next().next();
-
-      if( ! $this.val() ){
-        removeClassIfExists($this, 'green-border');
-        $this.addClass('red-border');
-        
-        removeClassIfExists($inputError, 'hide');
-        
-        // build error message and make it visible
-        $inputError.html($inputType[0].toUpperCase() + $inputType.slice(1) + ' required').addClass('show');
-      }
-      else {
-        removeClassIfExists($this, 'red-border');
-        
-        // authenticate(emailValue, passwordValue);
-        var xmlHttpResult = authenticate(emailValue, passwordValue);
-        
-        // handle response
-        xmlHttpResult.onreadystatechange = function() {
-          if ( xmlHttpResult.readyState == 4 ) {
-            if ( xmlHttpResult.status == 206 ) {
-              var resp = xmlHttpResult.response;
-              console.log(resp);
-              console.log(resp['message']);
-            }
-            else if ( xmlHttpResult.status == 403 ){
-              console.log(xmlHttpResult.status);
-              console.log(xmlHttpResult.response);
-            }
-            else {
-              // redirect to admin page
-              console.log(xmlHttpResult.status);
-              console.log(xmlHttpResult.response);
-              console.log(window.location.href);
-              console.log(window.location.pathname);
-              console.log(window.location.host);
-              // window.location.pathname = '/admin';
-            }
+    // when the first form child isn't an input, like an error container
+    if( ! $form.children().first().is('input') ){
+      // remove element from DOM
+      $form.children().first().remove();
+    }
+    
+    // check if input fields are filled
+    var fieldStatus = checkInputField($form);
+    
+    if( fieldStatus ){
+      // authenticate(emailValue, passwordValue);
+      var xmlHttpResult = authenticate(emailValue, passwordValue);
+      
+      // handle response
+      xmlHttpResult.onreadystatechange = function() {
+        if ( xmlHttpResult.readyState == 4 ) {
+          if ( xmlHttpResult.status == 206 ) {
+            // throw error // normally it shouldn't reach here
+            throw new Error(xmlHttpResult.response['message']);
           }
-        };
-      }
-    })
-
-
+          else if ( xmlHttpResult.status == 403 ){
+            // show message
+            $form.children().first().before(
+              '<div class="input-error">'+xmlHttpResult.response['message']+'</div>'
+              );
+            // complain
+            throw new Error(xmlHttpResult.response);
+          }
+          else {
+            // redirect to admin page
+            window.location.pathname = '/admin';
+          }
+        }
+      };
+    }
   })
 });
 
@@ -105,46 +78,63 @@ function authenticate(emailValue, passwordValue) {
   xmlHttp.responseType = 'json';
   // set req header as url encoded
   xmlHttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-
-  // xmlHttp.onreadystatechange = function() {
-  //   if ( xmlHttp.readyState == 4 ) {
-  //     if ( xmlHttp.status == 206 ) {
-  //       var resp = xmlHttp.response;
-
-  //       console.log(resp);  
-  //       console.log(resp.warning);  
-  //     }
-  //     else if ( xmlHttp.status == 400 ){
-        
-  //       console.log(xmlHttp.response);
-  //     }  
-  //     else if ( xmlHttp.status == 401 ){
-  //       console.log(xmlHttp.response);
-  //     }
-  //     else {
-  //       // redirect to admin page
-  //       console.log(xmlHttp.status);
-  //       console.log(xmlHttp.response);
-  //       console.log(window.location.href);
-  //       console.log(window.location.pathname);
-  //       console.log(window.location.host);
-  //       window.location.pathname = '/admin';
-  //     }
-  //   }
-  // };
-  
+  // send parameters
   xmlHttp.send(params);
-  console.log('done');
-  
+
   return(xmlHttp);
 }
 
+function checkInputField($form) {
+  var fieldStatus = 1;
+  
+  // run over filtered children
+  $form.children('input').map(function(){
+    var $this = $(this),
+        $inputType = this.type,
+        $inputError = $this.next().next();
 
+    if( !$this.val() ){
+      removeClassIfExists($this, 'green-border');
+      $this.addClass('red-border');
+      
+      removeClassIfExists($inputError, 'hide');
+      
+      // build error message and make it visible
+      $inputError.html($inputType[0].toUpperCase() + $inputType.slice(1) + ' required').addClass('show');
+      
+      fieldStatus = 0;
+    }
+    else {
+      removeClassIfExists($this, 'red-border');
+      $this.addClass('green-border');
 
-// CODE DUMP
-  // forbidden input
-  // var badInput= new RegExp([
-  // /\s/      // any whitespace character (space, tab, form feed, and so on)
-  // ,/\b/     // backspace
-  // // ,/\r/     // anchor
-  // ].map(function(r) {return r.source}).join(''));
+      removeClassIfExists($inputError, 'show');
+      $inputError.addClass('hide');
+    }
+  });
+  
+  return fieldStatus;
+}
+
+function enableTooltip($jqElem, objInfoMsgData){
+  // implement tooltip independently over each info-icon
+  $.each($('.after-input'), function(index, domElem){
+    // store jquery elem inside varibles
+    var $jqueryInput = $(domElem);
+    var inpName = $jqueryInput.prev().attr('name');
+
+    var $infoIcon = $(domElem.children[0]);
+    var $infoMsgRef = $(domElem.children[1]);
+
+    // build info message
+    $infoMsgRef.text(objInfoMsgData[inpName]);
+
+    $infoIcon.on("mouseover",function(){
+      $infoMsgRef.css('visibility', 'visible');
+    })
+  
+    $infoIcon.on("mouseout",function(){
+      $infoMsgRef.css('visibility', 'hidden');
+    })
+  })
+}

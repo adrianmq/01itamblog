@@ -9,7 +9,7 @@ class Admin {
   // do redirect to login page on construct
   function __construct() {
     $_SESSION['activePage'] = 'admin';
-    $_SESSION['isLogged'] = FALSE; //TOREMOVE
+    // $_SESSION['isLogged'] = FALSE; //TOREMOVE
 
     if(!isset($_SESSION['isLogged']) || $_SESSION['isLogged'] != TRUE){
       $this->authorized = FALSE;
@@ -21,7 +21,6 @@ class Admin {
 
       // redirect to login with delay so that user can see the unauthorized page
       header('Refresh: 1; URL='.LVL.'admin/login');
-      // header('Refresh: 3; URL='.LVL.'admin/login');
     }
   }
 
