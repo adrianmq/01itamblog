@@ -1,6 +1,7 @@
-/*body {*/
-/*  background-color: gray;*/
-/*}*/
+body {
+  background-color: gray;
+  min-height: 100%;
+}
 
 .wrapper-320 {
   width: 320px;
@@ -71,18 +72,13 @@ input{
   border-bottom-color: green;
 }
 
-.tooltip {
-  height:24px;
-  width:24px;
-}
-
 .visible-icon {
-  /*background-image:url('https://siitamblog-adrianmq.c9users.io/assets/img/information-icon.png');*/
   background-image:url('https://siitamblog-adrianmq.c9users.io/assets/img/info-icon.png');
   background-size:24px 24px;
   background-repeat:no-repeat;
-  height:100%;
-  width:100%;
+  height:24px;
+  width:24px;
+  z-index: -1;
 }
 
 .info {
