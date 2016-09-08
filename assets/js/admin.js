@@ -5,6 +5,37 @@ var BASE_URL = 'https://siitamblog-adrianmq.c9users.io';
 $(document).ready(function(){
   // grab form after data-id
   var $form = $('[data-id="admin-login-form"]');
+
+  // call login method on admin login view
+  if( $form.length !== 0 ){ login($form) }
+
+  // listen to logout button
+  $('#admin-logout').on('click', function(){
+    var urlToCall = BASE_URL + '/admin/logout';
+    var method = 'POST';
+    
+    var xmlHttp = new XMLHttpRequest();
+    // define request method, ASYNC
+    xmlHttp.open(method, urlToCall, true);
+    // send parameters
+    xmlHttp.send();
+    // handle response
+    xmlHttp.onreadystatechange = function() {
+      if ( xmlHttp.readyState == 4 ) {
+        if ( xmlHttp.status == 200 ) {
+          // redirect to admin page
+          window.location.pathname = '/admin/login';
+        }
+        else {
+          // redirect to admin page
+          throw new Error(xmlHttp.response);
+        }
+      }
+    };
+  })
+});
+
+function login($form) {
   var $formChildren = $form[0].children;
 
   // grab children after name || type || id
@@ -18,9 +49,6 @@ $(document).ready(function(){
     password: 'siit1234!'
   });
 
-  console.log($form.children().first().attr('name'));
-  console.log($form.children().first().is('input'));
-  
   // listen to login button
   $loginButton.on('click', function() {
     event.preventDefault();
@@ -51,7 +79,7 @@ $(document).ready(function(){
           else if ( xmlHttpResult.status == 403 ){
             // show message
             $form.children().first().before(
-              '<div class="input-error">'+xmlHttpResult.response['message']+'</div>'
+              '<li class="input-error">'+xmlHttpResult.response['message']+'</li>'
               );
             // complain
             throw new Error(xmlHttpResult.response);
@@ -64,7 +92,7 @@ $(document).ready(function(){
       };
     }
   })
-});
+}
 
 function authenticate(emailValue, passwordValue) {
   var urlToCall = BASE_URL + '/admin/login';

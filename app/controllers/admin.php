@@ -8,6 +8,7 @@ class Admin {
   
   // do redirect to login page on construct
   function __construct() {
+    // set active page
     $_SESSION['activePage'] = 'admin';
     // $_SESSION['isLogged'] = FALSE; //TOREMOVE
 

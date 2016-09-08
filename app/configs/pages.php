@@ -6,6 +6,7 @@ $pages = array(
   "/contact" => array( "path" => "contact.php", "class" => "Contact", "method" => "index" ),
   "/admin" => array( "path" => "admin.php", "class" => "Admin", "method" => "index" ),
   "/admin/login" => array( "path" => "login.php", "class" => "Login", "method" => "index" ),
+  "/admin/logout" => array( "path" => "login.php", "class" => "Login", "method" => "logout" ),
   "/admin/articles" => array( "path" => "admin.php", "class" => "Admin", "method" => "articles" ),
   "/admin/articles/delete" => array( "path" => "admin.php", "class" => "Admin", "method" => "deleteArticles")
 );
