@@ -7,8 +7,10 @@
     <title>a-blog</title>
 </head>
 <body>
-    <?php include "menuView.php"; ?>
-    <?php include $pageContent;?>
+    <div class="container">
+        <?php include "menuView.php"; ?>
+        <?php include $pageContent;?>
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.1.0.js" integrity="sha256-slogkvB1K3VOkzAI8QITxV3VzpOnkeNVsKvtkYLMjfk=" crossorigin="anonymous"></script>
     <script type="text/javascript" src="<?php echo LVL.JS; ?>helpers.js"></script>

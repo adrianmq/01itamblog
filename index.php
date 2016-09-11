@@ -16,7 +16,7 @@
   define('JS', 'assets/js/');
 
   if(!isset($_SERVER['PATH_INFO']) || !$_SERVER['PATH_INFO']){
-    $_SERVER['PATH_INFO'] = '/';  
+    $_SERVER['PATH_INFO'] = '/';
   }
   define('LVL', pathToRoot($_SERVER['PATH_INFO']));
 
