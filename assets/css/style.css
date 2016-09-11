@@ -40,21 +40,40 @@ a{
   padding: 2px 10px;
 }
 
-.login-container-1{
-  background-image: url('https://siitamblog-adrianmq.c9users.io/assets/img/network.jpg');
-  background-size:100% 100%;
-  background-repeat:no-repeat;
+.login-container{
   margin: 5px auto 5px;
-  height: 305px;
+  /*height: 305px;*/
+  height: 279px;
   width: 100%;
   z-index: -1;
+}
+
+.login-container-1{
+  background-image: url('https://siitamblog-adrianmq.c9users.io/assets/img/secure_coding.jpg');
+  background-size:822px 279px;
+  background-repeat:no-repeat;
+  width: 822px;
+  position: relative;
+  height: 279px;
+  float: left;
 }
 
 .login-container-2{
   width: 300px;
   position: relative;
   height: 100%;
-  margin: 1px auto;
+  margin-left: 520px;
+  margin-right: 0px;
+}
+
+.login-container-3{
+  /*background-image: url('https://siitamblog-adrianmq.c9users.io/assets/img/network.jpg');*/
+  /*background-size:100% 100%;*/
+  /*background-repeat:no-repeat;*/
+  background-color: gainsboro; 
+  width: 318px;
+  height: 100%;
+  float: right;
 }
 
 form{
@@ -133,12 +152,12 @@ input{
 .info {
   visibility:hidden;
   position:absolute;
-  background-color:lightgrey;
-  left:25px;
+  background-color:lightcoral;
+  left:30px;
   top:1px;
   min-height:10px;
   min-width:75px;
   font-family: "Times New Roman";
-  font-size: 75%;
+  font-size: 100%;
   font-style: normal;
 }
