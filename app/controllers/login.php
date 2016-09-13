@@ -3,6 +3,8 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST');  
 
 class Login {
+  public $loginWarning;
+
   function index_POST() {
     // header("Content-Type: application/json; charset=utf-8"); // not required because defined in xhr request
     // clean output buffer so the JSON response can be easily distinguished
@@ -39,7 +41,7 @@ class Login {
     $this->adminIsLogged();
     
     if(isset($_SESSION['activePage']) && $_SESSION['activePage'] != 'login') {
-        echo '<pre style="margin-top:0px; float:right; color:red;">Please authenticate first! </pre>'; 
+        $this->loginWarning = 'Please authenticate first!';
     } 
     $title = "Login Page";
     $pageContent = "loginView.php";

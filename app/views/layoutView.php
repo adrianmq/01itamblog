@@ -8,6 +8,7 @@
 </head>
 <body>
     <div class="container">
+        <?php if(!empty($this->loginWarning)){ echo '<span style="font-size:75%; margin-top:1px; float:right; color:red;">'.$this->loginWarning.'</span>'; }; ?>
         <?php include "menuView.php"; ?>
         <?php include $pageContent;?>
     </div>
