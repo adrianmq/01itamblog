@@ -1,6 +1,6 @@
 /*global $*/
 /*global removeClassIfExists*/
-var BASE_URL = 'https://siitamblog-adrianmq.c9users.io';
+/*global BASE_URL*/
 
 $(document).ready(function(){
   // grab form after data-id
@@ -82,7 +82,7 @@ function login($form) {
               '<li class="input-error">'+xmlHttpResult.response['message']+'</li>'
               );
             // complain
-            throw new Error(xmlHttpResult.response);
+            throw new Error(xmlHttpResult.response['message']);
           }
           else {
             // redirect to admin page
@@ -123,7 +123,7 @@ function checkInputField($form) {
 
     if( !$this.val() ){
       removeClassIfExists($this, 'green-border');
-      $this.addClass('red-border');
+      $this.addClass('black-border');
       
       removeClassIfExists($inputError, 'hide');
       
@@ -133,7 +133,7 @@ function checkInputField($form) {
       fieldStatus = 0;
     }
     else {
-      removeClassIfExists($this, 'red-border');
+      removeClassIfExists($this, 'black-border');
       $this.addClass('green-border');
 
       removeClassIfExists($inputError, 'show');

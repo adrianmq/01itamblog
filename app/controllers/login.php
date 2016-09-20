@@ -5,6 +5,11 @@ header('Access-Control-Allow-Methods: GET, POST');
 class Login {
   public $loginWarning;
 
+  function __construct() {
+    // set active page as login
+    $_SESSION['activePage'] = 'login';
+  }
+
   function index_POST() {
     // header("Content-Type: application/json; charset=utf-8"); // not required because defined in xhr request
     // clean output buffer so the JSON response can be easily distinguished
@@ -30,6 +35,8 @@ class Login {
       }
       else {
         $_SESSION['isLogged'] = TRUE;
+        $_SESSION['adminLoginTime'] = time(); // start time count for session
+        $_SESSION['previousPage'] = 'login';
         
         http_response_code(200);
         sendResponseToJSON(array('success'=>'Logged in successfully'));
@@ -38,21 +45,24 @@ class Login {
   }
   
   function index_GET() {
-    $this->adminIsLogged();
+    if( $this->adminIsLogged() ) { die(); }
     
-    if(isset($_SESSION['activePage']) && $_SESSION['activePage'] != 'login') {
-        $this->loginWarning = 'Please authenticate first!';
+    if(isset($_SESSION['previousPage']) && $_SESSION['previousPage'] == 'unauthorized') {
+      $this->loginWarning = 'Please authenticate first!';
+    }
+    elseif(isset($_SESSION['previousPage']) && $_SESSION['previousPage'] == 'admin') {
+      $this->loginWarning = 'Session expired! Please login again.';
     } 
+
     $title = "Login Page";
     $pageContent = "loginView.php";
     include VIEWS."layoutView.php";
-
-    $_SESSION['activePage'] = 'login'; // set active page as login
   }
 
   function logout() {
     // unset variable so that it's not available anymore for validation
     unset($_SESSION['isLogged']);
+    session_unset(); // unset $_SESSION variable for this page
     session_destroy(); // will be done only after refresh, browser render
     // header('Location: '.LVL.'admin/login'); // doesn't work probably because of XHR
 

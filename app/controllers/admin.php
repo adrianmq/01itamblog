@@ -1,17 +1,15 @@
 <?php
 require MODELS."articlesModel.php";
 
-// echoPre($_SESSION); //TOREMOVE
-
 class Admin {
   private $authorized = TRUE;
-  
+  private $inactive = 7200; // set the session max lifetime to 2 hours
+
   // do redirect to login page on construct
   function __construct() {
     // set active page
     $_SESSION['activePage'] = 'admin';
-    // $_SESSION['isLogged'] = FALSE; //TOREMOVE
-
+  
     if(!isset($_SESSION['isLogged']) || $_SESSION['isLogged'] != TRUE){
       $this->authorized = FALSE;
       http_response_code(401);
@@ -19,9 +17,14 @@ class Admin {
       // display unauthorized view
       $pageTitle = 'Unauthorized access';
       include VIEWS . "unauthorized.php";
+      $_SESSION['previousPage'] = 'unauthorized'; // set active page as login
 
       // redirect to login with delay so that user can see the unauthorized page
       header('Refresh: 1; URL='.LVL.'admin/login');
+    }
+    else {
+      // check that it's login time hasn't exceeded limit  
+      $this->checkSessionTime();
     }
   }
 
@@ -48,6 +51,22 @@ class Admin {
 
     sendResponseToJSON(array('deleted' => $result));
   }
-  
+
+  // check login time and unset session
+  private function checkSessionTime() {
+    if (isset($_SESSION['adminLoginTime']) && (time() - $_SESSION['adminLoginTime'] > $this->inactive)) {
+      // last request was more than the set inactive time
+      session_unset();     // unset $_SESSION variable for this page
+      session_destroy();   // destroy session data
+      session_start();
+      session_regenerate_id(true);
+      
+      $_SESSION['previousPage'] = 'admin'; // set active page as login
+      $_SESSION['isLogged'] = FALSE;
+      
+      // redirect to login with delay so that user can see the unauthorized page
+      header('Location: '.LVL.'admin/login');
+    }
+  }
 }
 ?>

@@ -1,11 +1,13 @@
 <?php
   // Display all errors on page
   ini_set(error_reporting, E_ALL);
+  // set the session max lifetime to 2 hours
+  ini_set('session.gc_maxlifetime', 7200);
 
   require 'app/configs/pages.php';
   require 'app/helpers/functions.php';
 
-  session_start();
+  if(empty($_SESSION) and !session_id()) { session_start(); }
 
   define("BASE_URL", "https://siitamblog-adrianmq.c9users.io/");
   define('VIEWS', 'app/views/'); // constants name with CAPS LOCK

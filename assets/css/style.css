@@ -117,7 +117,7 @@ input{
   font-family: "Times New Roman";
   font-size: 75%;
   font-style: normal;
-  color: red;
+  color: black;
 }
 
 .hide{
@@ -126,6 +126,12 @@ input{
 
 .show{
   visibility: visible;
+}
+
+.black-border{
+  border-bottom-width: medium;
+  border-bottom-style: solid;
+  border-bottom-color: black;
 }
 
 .red-border{

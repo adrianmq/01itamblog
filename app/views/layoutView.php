@@ -14,8 +14,9 @@
     </div>
 
     <script src="https://code.jquery.com/jquery-3.1.0.js" integrity="sha256-slogkvB1K3VOkzAI8QITxV3VzpOnkeNVsKvtkYLMjfk=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="<?php echo LVL.JS; ?>fixtures.js"></script>
     <script type="text/javascript" src="<?php echo LVL.JS; ?>helpers.js"></script>
-    <!--<script type="text/javascript" src="<php echo JS; ?>app.js"></script>-->
     <script type="text/javascript" src="<?php echo LVL.JS; ?>admin.js"></script>
+    <script type="text/javascript" src="<?php echo LVL.JS; ?>app.js"></script>
 </body>
 </html>

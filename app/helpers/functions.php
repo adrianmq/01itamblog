@@ -33,6 +33,15 @@ function sendResponseToJSON($response) {
   die($res);
 }
 
+// check login time and unset session
+function checkSessionTime() {
+  if (isset($_SESSION['adminLoginTime']) && (time() - $_SESSION['adminLoginTime'] > $inactive)) {
+      // last request was more than the set inactive time
+      session_unset();     // unset $_SESSION variable for this page
+      session_destroy();   // destroy session data
+  }
+}
+
 // attempt to send response data
 function jsonResponse($code = 200, $message) {
   // clean output buffer so the JSON response can be easily distinguished
