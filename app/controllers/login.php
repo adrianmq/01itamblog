@@ -53,10 +53,11 @@ class Login {
     elseif(isset($_SESSION['previousPage']) && $_SESSION['previousPage'] == 'admin') {
       $this->loginWarning = 'Session expired! Please login again.';
     } 
-
+    
     $title = "Login Page";
     $pageContent = "loginView.php";
     include VIEWS."layoutView.php";
+    $_SESSION['previousPage'] = ''; // set variable as undef, in case or refresh
   }
 
   function logout() {

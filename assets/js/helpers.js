@@ -20,3 +20,13 @@ function modVisibForNextElem(jQelem, elem, prop){
     nextField.css('visibility', prop);
   }
 }
+
+function triggerGlyphiconASC(a) {
+    a.attr("data-type", "asc"),
+    a.removeClass("glyphicon-chevron-down").addClass("glyphicon-chevron-up")
+}
+
+function triggerGlyphiconDESC(a) {
+    a.attr("data-type", "desc"),
+    a.removeClass("glyphicon-chevron-up").addClass("glyphicon-chevron-down")
+}

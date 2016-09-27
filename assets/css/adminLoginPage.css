@@ -1,0 +1,139 @@
+
+.login-container{
+  margin: 5px auto 5px;
+  /*height: 305px;*/
+  height: 279px;
+  width: 100%;
+  z-index: -1;
+}
+
+.login-container-1{
+  background-image: url('https://siitamblog-adrianmq.c9users.io/assets/img/secure_coding.jpg');
+  background-size:822px 279px;
+  background-repeat:no-repeat;
+  background-color: gainsboro; 
+  /*width: 822px;*/
+  width: 100%;
+  position: relative;
+  height: 279px;
+  float: left;
+}
+
+.login-container-2{
+  width: 300px;
+  position: relative;
+  height: 100%;
+  margin-left: 520px;
+  margin-right: 0px;
+}
+
+.login-container-3{
+  /*background-image: url('https://siitamblog-adrianmq.c9users.io/assets/img/network.jpg');*/
+  /*background-size:100% 100%;*/
+  /*background-repeat:no-repeat;*/
+  background-color: gainsboro; 
+  width: 318px;
+  height: 100%;
+  float: right;
+}
+
+.admin-container{
+  background-color: gainsboro; 
+  margin: 5px auto 5px;
+  min-height: 300px;
+  /*height: auto;*/
+  /*height: 100%;*/
+  /*width: 318px;*/
+  width: 100%;
+  z-index: -1;
+}
+
+.checkbox-articles {
+  height: 10px;
+  width: 10px;
+  padding: 0px;
+  margin: 0px;
+  font-size: 1px;
+}
+
+#admin-login{
+  font-size: 14px;
+  margin: 10px auto 0;
+  height: 25px;
+  width: 250px;
+  color: #132639;
+}
+
+#admin-logout{
+  background-color: #EC2D2B;
+  line-height: 30px;
+  margin: 10px;
+  width: 125px;
+  position: relative;
+  float: right;
+}
+
+.after-input{
+  float: right;
+  position: relative;
+  margin: 10px 1px 1px 1px;
+}
+
+.input-error{
+  display: block;
+  margin: 1px 1px;
+  height: 10px;
+  font-family: "Times New Roman";
+  font-size: 75%;
+  font-style: normal;
+  color: black;
+}
+
+.hide{
+  visibility: hidden;
+  display: none;
+}
+
+.show{
+  visibility: visible;
+}
+
+.black-border{
+  border-bottom-width: medium;
+  border-bottom-style: solid;
+  border-bottom-color: black;
+}
+
+.red-border{
+  border-bottom-width: medium;
+  border-bottom-style: solid;
+  border-bottom-color: red;
+}
+
+.green-border{
+  border-bottom-width: medium;
+  border-bottom-style: solid;
+  border-bottom-color: green;
+}
+
+.visible-icon {
+  background-image:url('https://siitamblog-adrianmq.c9users.io/assets/img/info-icon.png');
+  background-size:24px 24px;
+  background-repeat:no-repeat;
+  height:24px;
+  width:24px;
+  z-index: -1;
+}
+
+.info {
+  visibility:hidden;
+  position:absolute;
+  background-color:lightcoral;
+  left:30px;
+  top:1px;
+  min-height:10px;
+  min-width:125px;
+  font-family: "Times New Roman";
+  font-size: 14px;
+  font-style: normal;
+}
