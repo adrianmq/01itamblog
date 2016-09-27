@@ -5,7 +5,6 @@
   height: 50px;
   padding-left: 10px;
   padding-right: 10px;
-  padding-bottom: 10px;
 }
 
 .action-icon {
@@ -21,7 +20,7 @@
   text-align: center;
   border: 1px solid #c6d9ec;
   width: 100%;
-  margin-top: 10px;
+  /*margin-top: 10px;*/
   margin-bottom: 10px;
   max-width: 100%;
   background-color: transparent;
@@ -30,13 +29,13 @@
 }
 
 thead.should-be-sortable {
-  background-color: #132639;
+  background-color: #273746;
   color: #ecf2f9;
 }
 
 tbody.should-be-sortable {
   background-color: #d9e6f2;
-  color: #132639;
+  color: #273746;
 }
 
 .should-be-sortable {
@@ -46,7 +45,7 @@ tbody.should-be-sortable {
 }
 
 .modal-cat2 {
-  font-size: 13px;
+  font-size: 12px;
   text-transform: uppercase;
   font-weight: 700;
   font-family: 'PT Sans',sans-serif;
@@ -62,7 +61,7 @@ tbody.should-be-sortable {
 .add-article>span {
   display: inline-block;
   position: relative;
-  color: #1a1aff;
+  color: #1D8348;
   line-height: 30px;
   padding-left: 40px;  
 }
@@ -72,7 +71,7 @@ tbody.should-be-sortable {
   position: absolute;
   height: 30px;
   width: 30px;
-  border: 1px solid #1a1aff;
+  border: 1px solid #145A32;
   left: 0;
   border-radius: 3px;
   font-size: 22px;
@@ -89,7 +88,7 @@ tbody.should-be-sortable {
 .delete-article>span {
   display: inline-block;
   position: relative;
-  color: #000033;
+  color: #212F3D;
   line-height: 30px;
   padding-left: 40px;  
 }
@@ -99,7 +98,7 @@ tbody.should-be-sortable {
   position: absolute;
   height: 30px;
   width: 30px;
-  border: 1px solid #000033;
+  border: 1px solid #424949;
   left: 0;
   border-radius: 3px;
   font-size: 22px;

@@ -38,7 +38,7 @@
 }
 
 .admin-container{
-  background-color: gainsboro; 
+  background-color: #AEB6BF; 
   margin: 5px auto 5px;
   min-height: 300px;
   /*height: auto;*/
@@ -57,6 +57,7 @@
 }
 
 #admin-login{
+  line-height: 25px;
   font-size: 14px;
   margin: 10px auto 0;
   height: 25px;
@@ -66,7 +67,7 @@
 
 #admin-logout{
   background-color: #EC2D2B;
-  line-height: 30px;
+  line-height: 25px;
   margin: 10px;
   width: 125px;
   position: relative;

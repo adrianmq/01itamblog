@@ -29,7 +29,7 @@ input {
 }
 
 button {
-  height: 30px;
+  height: 25px;
   font-size: 14px;
   color: #fff;
   border: 0;
@@ -55,7 +55,7 @@ input[type=checkbox]{
 }
 
 .h1-unauthorized-custom {
-  font-family: verdana;
+  font-family: Roboto,sans-serif;
   font-size: 150%;
   padding: 5px;
   text-align: center;
@@ -65,7 +65,7 @@ input[type=checkbox]{
 .menu{
   display: inline-block;
   margin: 1px auto;
-  background-color: gainsboro;
+  background-color: #D6DBDF;
   color: black;
   width: 100%;
   height: 30px;
