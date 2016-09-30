@@ -49,8 +49,6 @@
         <div class=" row">
           <div class="form-group col-xs-12">
             <input id="saveArticle" class="btn btn-danger btn-block" value="SAVE ARTICLE"/>
-            <!--<button id="saveArticle" class="btn btn-danger btn-block" >SAVE ARTICLE</button>-->
-            <!--<button id="saveArticle" name="submit" value="1">SAVE ARTICLE</button>-->
           </div>
         </div>
       </form>
