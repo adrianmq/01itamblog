@@ -6,8 +6,8 @@ require MODELS."articlesModel.php";
 
 class Admin {
   private $authorized = TRUE;
-  // private $inactive = 60; // set the session max lifetime to 2 hours
-  private $inactive = 7200; // set the session max lifetime to 2 hours
+  private $inactive = 120; // set the session max lifetime to 2 hours
+  // private $inactive = 7200; // set the session max lifetime to 2 hours
 
   // do redirect to login page on construct
   function __construct() {
@@ -57,9 +57,22 @@ class Admin {
   }
 
   function createArticle() {
-    if(!empty($_POST) ){
-      var_dump($_POST);
+    $articlesModel = new ArticlesModel();
+    $result = $articlesModel->addArticle($_POST);
+    // response should be sent in JSON format
+    sendResponseToJSON($result);
+  }
+
+  function getCategories() {
+    $articlesModel = new ArticlesModel();
+    $result = $articlesModel->getCategories();
+    $categories = array();
+    
+    foreach ($result as $content){
+      array_push($categories, $content['category']);
     }
+    // response should be sent in JSON format
+    sendResponseToJSON($categories);
   }
 
   // check login time and unset session

@@ -37,10 +37,11 @@
 
 #selectCategory {
   padding-left: 9px;
-  padding-bottom: 0;
+  padding-bottom: 9px;
+  margin-bottom: 20px;
 }
 
-#appDescription {
+#articleContent {
   height: 200px;
   color: #145A32;
 }

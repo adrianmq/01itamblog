@@ -29,15 +29,10 @@ class ArticlesModel extends DB {
     $idsList = implode(', ',$ids);
     
     $params = [':ids' => $idsList];
-    // $sql = 'UPDATE articles SET active = 0, deleted = 1 WHERE id IN (:ids)';
     $sql = 'UPDATE articles SET active = 0, deleted = 1 WHERE id IN ('.$idsList.')';
-    
     $sth = $this->dbh->prepare($sql);
-    // $sth->execute($params);
     $sth->execute();
-    
-    // var_dump($sth->rowCount());
-    
+
     return $sth->rowCount(); 
   }
   
@@ -50,17 +45,36 @@ class ArticlesModel extends DB {
     return $sth->rowCount(); 
   }
   
+  // Get list of all published articles
+  function getCategories() {
+    $sql = 'SELECT category FROM articles GROUP BY category';
+    $sth = $this->dbh->prepare($sql);
+    $sth->execute();
+    
+    return $sth->fetchAll(PDO::FETCH_ASSOC);    
+  }
+  
   // Add new article
   function addArticle($article) {
-    $params = [':title' => $article["title"], ':content' => $article["content"]]; 
-    $sql = 'INSERT INTO articles(title, content) VALUES(:title, :content)';
+    $params = [
+      ':user_id' => 1, // only one user for the moment
+      ':title' => $article["articleTitle"], 
+      ':content' => $article["articleContent"], 
+      ':category' => $article["categoryName"]
+    ]; 
+    $sql = 'INSERT INTO articles(user_id, title, content, category) VALUES(:user_id, :title, :content, :category)';
     $sth = $this->dbh->prepare($sql);
     $result = $sth->execute($params);
     return $sth->rowCount();
   }
   
   function updateArticle($article) {
-    $params = [':id' => $article['id'], ':title' => $article["title"], ':content' => $article["content"]];
+    $params = [
+      ':id' => $article['id'],
+      ':title' => $article["articleTitle"], 
+      ':content' => $article["articleContent"], 
+      ':category' => $article["categoryName"]
+    ];
     $sql = 'UPDATE articles SET title = :title, content = :content WHERE id = :id';
     $sth = $this->dbh->prepare($sql);
     $sth->execute($params);

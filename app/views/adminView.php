@@ -30,19 +30,27 @@
         </div>
         <div class=" row">
           <div class="form-group col-xs-12 select-article">
-            <select id="selectCategory" type="text" class="form-control input-md input-app-fix"/>
+            <select id="selectCategory" type="text" name="selectCategory" class="form-control input-md input-app-fix" aria-invalid="false"/>
               <option value="0">Select category</option>
+              <option value="1">HTML</option>
+              <option value="2">CSS</option>
+              <option value="3">MySQL</option>
+              <option value="4">PHP</option>
+              <option value="5">Javascript</option>
+              <option value="6">Perl</option>
             </select>
           </div>
         </div>
         <div class=" row">
           <div class="form-group col-xs-12">
-            <input id="appDescription" type="text" class="form-control input-md input-app-fix" placeholder="Content"/>
+            <input id="articleContent" type="text" class="form-control input-md input-app-fix" placeholder="Content"/>
           </div>
         </div>
         <div class=" row">
           <div class="form-group col-xs-12">
             <input id="saveArticle" class="btn btn-danger btn-block" value="SAVE ARTICLE"/>
+            <!--<button id="saveArticle" class="btn btn-danger btn-block" >SAVE ARTICLE</button>-->
+            <!--<button id="saveArticle" name="submit" value="1">SAVE ARTICLE</button>-->
           </div>
         </div>
       </form>
