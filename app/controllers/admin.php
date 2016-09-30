@@ -1,8 +1,12 @@
 <?php
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET, POST');  
+
 require MODELS."articlesModel.php";
 
 class Admin {
   private $authorized = TRUE;
+  // private $inactive = 60; // set the session max lifetime to 2 hours
   private $inactive = 7200; // set the session max lifetime to 2 hours
 
   // do redirect to login page on construct
@@ -37,17 +41,17 @@ class Admin {
   }
 
   function articles() {
-      $articlesModel = new ArticlesModel();
-      $result = $articlesModel->getArticles();
-      // response should be sent in JSON format
-      sendResponseToJSON($result);
+    $articlesModel = new ArticlesModel();
+    $result = $articlesModel->getArticles();
+    // response should be sent in JSON format
+    sendResponseToJSON($result);
   }
   
-  function deleteArticle() {
+  function deleteArticles() {
     parse_str(file_get_contents("php://input"), $DELETE);
-    
+
     $articlesModel = new ArticlesModel();
-    $result = $articlesModel->deleteArticle($DELETE["id"]);
+    $result = $articlesModel->deleteArticles($DELETE['articleIds']);
 
     sendResponseToJSON(array('deleted' => $result));
   }

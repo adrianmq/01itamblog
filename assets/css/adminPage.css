@@ -20,8 +20,8 @@
   text-align: center;
   border: 1px solid #c6d9ec;
   width: 100%;
-  /*margin-top: 10px;*/
-  margin-bottom: 10px;
+  margin-top: 1px;
+  margin-bottom: 15px;
   max-width: 100%;
   background-color: transparent;
   border-collapse: collapse;
@@ -62,20 +62,20 @@ tbody.should-be-sortable {
   display: inline-block;
   position: relative;
   color: #1D8348;
-  line-height: 30px;
-  padding-left: 40px;  
+  line-height: 23px;
+  padding-left: 35px;  
 }
 
 .add-article>span:before {
   content: "+";
   position: absolute;
-  height: 30px;
-  width: 30px;
+  height: 25px;
+  width: 25px;
   border: 1px solid #145A32;
   left: 0;
-  border-radius: 3px;
-  font-size: 22px;
-  line-height: 28px;
+  border-radius: 1px;
+  font-size: 24px;
+  line-height: 19px;
   text-align: center;
 }
 
@@ -89,44 +89,49 @@ tbody.should-be-sortable {
   display: inline-block;
   position: relative;
   color: #212F3D;
-  line-height: 30px;
-  padding-left: 40px;  
+  line-height: 23px;
+  padding-left: 35px;  
 }
 
 .delete-article>span:before {
   content: "×";
   position: absolute;
-  height: 30px;
-  width: 30px;
+  height: 25px;
+  width: 25px;
   border: 1px solid #424949;
   left: 0;
-  border-radius: 3px;
-  font-size: 22px;
-  line-height: 28px;
+  border-radius: 1px;
+  font-size: 24px;
+  line-height: 19px;
   text-align: center;
 }
 
-.glyphicon:empty {
-  width: 1em;
+.no-table-content {
+  background-color: #d9e6f2;
+  color: #EC2D2B;
+  height: 50px;
+  width: 100%;
+  padding-top: 10px;
+  margin-bottom: 15px;
+  text-align: center;
 }
 
-.up-down {
+.admin-container-error {
+  background-color: #AEB6BF; 
+  /*margin: 5px auto 5px;*/
+  min-height: 15px;
+  width: 100%;
+  z-index: -1;
+}
+
+.admin-container-error>span {
   font-size: 12px;
-  color: #ecf2f9;
-  cursor: pointer;
-  padding-left: 5px;
-}
-
-.glyphicon {
-  position: relative;
-  top: 1px;
-  display: inline-block;
-  font-family: 'Glyphicons Halflings';
-  font-style: normal;
-  font-weight: 400;
-  line-height: 1;
-}
-
-.glyphicon-chevron-up:before {
-  content: "\e113";
+  font-weight: 500;
+  font-family: 'PT Sans',sans-serif;
+  line-height: 23px;
+  margin-left: 21px;
+  position: absolute;
+  min-height: inherit;
+  float: left;
+  color: #EC2D2B;
 }

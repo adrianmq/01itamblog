@@ -7,7 +7,7 @@ class ArticlesModel extends DB {
   
   // Get list of all published articles
   function getArticles() {
-    $sql = 'select * from articles where published = 1';
+    $sql = 'select * from articles where active = 1 and deleted = 0';
     $sth = $this->dbh->prepare($sql);
     $sth->execute();
     
@@ -22,6 +22,23 @@ class ArticlesModel extends DB {
     $sth->execute($params);
     
     return $sth->fetch(PDO::FETCH_ASSOC);      
+  }
+  
+  // Delete article by ids
+  function deleteArticles($ids) {
+    $idsList = implode(', ',$ids);
+    
+    $params = [':ids' => $idsList];
+    // $sql = 'UPDATE articles SET active = 0, deleted = 1 WHERE id IN (:ids)';
+    $sql = 'UPDATE articles SET active = 0, deleted = 1 WHERE id IN ('.$idsList.')';
+    
+    $sth = $this->dbh->prepare($sql);
+    // $sth->execute($params);
+    $sth->execute();
+    
+    // var_dump($sth->rowCount());
+    
+    return $sth->rowCount(); 
   }
   
   // Delete article by id

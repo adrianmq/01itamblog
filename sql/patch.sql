@@ -26,3 +26,12 @@ CREATE TABLE `admin` (
   UNIQUE INDEX `email_UNIQUE` (`email` ASC),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC)
 ) ENGINE=InnoDB;
+
+ALTER TABLE `articles`
+  ADD COLUMN `rating` INT(5) NOT NULL DEFAULT 0 AFTER `published`;
+  
+
+
+
+
+
