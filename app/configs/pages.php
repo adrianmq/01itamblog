@@ -8,5 +8,6 @@ $pages = array(
   "/admin/logout" => array( "path" => "login.php", "class" => "Login", "method" => "logout" ),
   "/admin" => array( "path" => "admin.php", "class" => "Admin", "method" => "index" ),
   "/admin/articles" => array( "path" => "admin.php", "class" => "Admin", "method" => "articles" ),
-  "/admin/articles/delete" => array( "path" => "admin.php", "class" => "Admin", "method" => "deleteArticles")
+  "/admin/articles/delete" => array( "path" => "admin.php", "class" => "Admin", "method" => "deleteArticles"),
+  "/admin/articles/create" => array( "path" => "admin.php", "class" => "Admin", "method" => "createArticle")
 );

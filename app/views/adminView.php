@@ -16,6 +16,38 @@
         </div>
       </div>
     </div>
+
+    <div class="add-article-container clearfix hide">
+      <div data-toggle="modal" data-target="#closeAddArticle" onmouseover="" class="close-add-article">
+        <span title="close-add-article-card">x</span>
+      </div>
+      <h4 class="text-xs-center m-t-3" style="color:#145A32;">Add Article</h4>
+      <form id="addArticleForm" class="form-horizontal m-x-auto" style="width:50%;">
+        <div class=" row">
+          <div class="form-group col-xs-12">
+            <input id="articleTitle" type="text" class="form-control input-md input-app-fix" placeholder="Article title"/>
+          </div>
+        </div>
+        <div class=" row">
+          <div class="form-group col-xs-12 select-article">
+            <select id="selectCategory" type="text" class="form-control input-md input-app-fix"/>
+              <option value="0">Select category</option>
+            </select>
+          </div>
+        </div>
+        <div class=" row">
+          <div class="form-group col-xs-12">
+            <input id="appDescription" type="text" class="form-control input-md input-app-fix" placeholder="Content"/>
+          </div>
+        </div>
+        <div class=" row">
+          <div class="form-group col-xs-12">
+            <input id="saveArticle" class="btn btn-danger btn-block" value="SAVE ARTICLE"/>
+          </div>
+        </div>
+      </form>
+    </div>
+
     <div class="table-responsive col-md-12">
       <table class="table table-hover table-striped table-bordered responsive articles-table">
         <thead class="should-be-sortable">

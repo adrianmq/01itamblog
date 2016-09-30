@@ -56,6 +56,12 @@ class Admin {
     sendResponseToJSON(array('deleted' => $result));
   }
 
+  function createArticle() {
+    if(!empty($_POST) ){
+      var_dump($_POST);
+    }
+  }
+
   // check login time and unset session
   private function checkSessionTime() {
     if (isset($_SESSION['adminLoginTime']) && (time() - $_SESSION['adminLoginTime'] > $this->inactive)) {
