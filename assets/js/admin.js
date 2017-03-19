@@ -1,56 +1,52 @@
 /*global $*/
 /*global BASE_URL*/
 /*global removeClassIfExists*/
-$(function(){
-  var $pathname = window.location.pathname;
-  // request only when path is accessed
-  if($pathname.match('^/admin$')){
-    var admin = new Admin();
-    admin.getArticles();
-
-    $('#select-all').on("click",function(e){
-      admin.selectAllArticles();
-    })
-
-    var $checkboxes = $('.article-select');
-    $checkboxes.on("click",function(e){
-      admin.uncheckSelectAll($checkboxes);
-    })
-
-    // var $selectCategory = $('#selectCategory');
-    // $selectCategory.on("click",function(e){
-    //   admin.showCategories($selectCategory);
-    // })
-
-    var $addArticleCard = $(".add-article-container");
-    $('.add-article').on("click",function(e){
-      e.preventDefault();
-      admin.addArticleCard($addArticleCard);
-    })
-    
-    var $saveArticle = $("#saveArticle");
-    $saveArticle.click(function(e){
-      admin.addArticle();
-    })
-
-    $('.delete-article').on("click",function(e){
-      e.preventDefault();
-      admin.deleteArticle();
-    })
-
-    $(".close-add-article").on("click",function(e){
-      e.preventDefault();
-      if( !$addArticleCard.hasClass('hide') ){
-        $addArticleCard.slideToggle(500);
-        $addArticleCard.addClass('hide');
-      }
-    })
-  }
-});
-
 function Admin(){
   this.url = BASE_URL + '/admin';
 };
+
+Admin.prototype.initiateEvents = function(){
+  var admin = this;
+  admin.getArticles();
+
+  $('#select-all').on("click",function(e){
+    admin.selectAllArticles();
+  })
+
+  var $checkboxes = $('.article-select');
+  $checkboxes.on("click",function(e){
+    admin.uncheckSelectAll($checkboxes);
+  })
+
+  var $selectCategory = $('#selectCategory');
+  $selectCategory.on("click",function(e){
+    admin.showCategories($selectCategory);
+  })
+
+  var $addArticleCard = $(".add-article-container");
+  $('.add-article').on("click",function(e){
+    e.preventDefault();
+    admin.addArticleCard($addArticleCard);
+  })
+  
+  var $saveArticle = $("#saveArticle");
+  $saveArticle.click(function(e){
+    admin.addArticle();
+  })
+
+  $('.delete-article').on("click",function(e){
+    e.preventDefault();
+    admin.deleteArticle();
+  })
+
+  $(".close-add-article").on("click",function(e){
+    e.preventDefault();
+    if( !$addArticleCard.hasClass('hide') ){
+      $addArticleCard.slideToggle(500);
+      $addArticleCard.addClass('hide');
+    }
+  })
+}
 
 Admin.prototype.getArticles = function(){
   var admin = this;
@@ -59,7 +55,7 @@ Admin.prototype.getArticles = function(){
   $.ajax({
     url: admin.url + '/articles',
     method: 'GET',
-    async: false,
+    async: true,
     success: function(response) {
       var articleData = JSON.parse(response);
       var adminTable = $(".articles-table");
@@ -101,7 +97,7 @@ Admin.prototype.addArticleCard = function($addArticleCard){
   $addArticleCard.slideToggle(500);
   removeClassIfExists($addArticleCard, 'hide');
   
-  // admin['categoriesAll'] = JSON.parse(admin.getCategories());
+  admin['categoriesAll'] = JSON.parse(admin.getCategories());
 }
 
 Admin.prototype.addArticle = function(){

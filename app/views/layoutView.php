@@ -21,5 +21,7 @@
     <script type="text/javascript" src="<?php echo LVL.JS; ?>helpers.js"></script>
     <script type="text/javascript" src="<?php echo LVL.JS; ?>adminlogin.js"></script>
     <script type="text/javascript" src="<?php echo LVL.JS; ?>admin.js"></script>
+    <script type="text/javascript" src="<?php echo LVL.JS; ?>articleslist.js"></script>
+    <script type="text/javascript" src="<?php echo LVL.JS; ?>main.js"></script>
 </body>
 </html>

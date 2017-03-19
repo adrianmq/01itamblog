@@ -1,13 +1,77 @@
 /*global $*/
 /*global removeClassIfExists*/
 /*global BASE_URL*/
-$(document).ready(function(){
-  // grab form after data-id
-  var $form = $('[data-id="admin-login-form"]');
+function AdminLogin(){
+  this.url = BASE_URL + '/admin/login';
+};
+
+AdminLogin.prototype.viewHandler = function() {
+  var adminLogin = this;
+  // grab login form after data-id
+  var $loginForm = $('[data-id="admin-login-form"]');
 
   // call login method on admin login view
-  if( $form.length !== 0 ){ login($form) }
+  if ( $loginForm.length !== 0 ) {
+    adminLogin.enableTooltip();
 
+    var $formChildren = $loginForm[0].children;
+
+    // grab children after name || type || id
+    var $formEmail = $($formChildren['email']);
+    var $formPassword = $($formChildren['password']);
+    var $loginButton = $($formChildren['admin-login']);
+
+    // listen to login button
+    $loginButton.on('click', function(){
+      event.preventDefault();
+    
+      var emailValue = $formEmail.val();
+      var passwordValue = $formPassword.val();
+    
+      // when the first form child isn't an input, like an error container
+      if( !$loginForm.children().first().is('input') ){
+        // remove element from DOM
+        $loginForm.children().first().remove();
+      }
+      
+      // check if input fields are filled
+      var fieldStatus = adminLogin.checkInputField($loginForm);
+
+      if ( fieldStatus ) {
+        // authenticate(emailValue, passwordValue);
+        var xmlHttpResult = adminLogin.authenticate(emailValue, passwordValue);
+        
+        adminLogin.responseHandler(xmlHttpResult, $loginForm);
+      }
+    });
+  }
+}
+
+AdminLogin.prototype.responseHandler = function(xmlHttpResult, $loginForm) {
+  // handle response
+  xmlHttpResult.onreadystatechange = function() {
+    if ( xmlHttpResult.readyState == 4 ) {
+      if ( xmlHttpResult.status == 206 ) {
+        // throw error // normally it shouldn't reach here
+        throw new Error(xmlHttpResult.response['message']);
+      }
+      else if ( xmlHttpResult.status == 403 ){
+        // show message
+        $loginForm.children().first().before(
+          '<li class="input-error">'+xmlHttpResult.response['message']+'</li>'
+          );
+        // complain
+        throw new Error(xmlHttpResult.response['message']);
+      }
+      else {
+        // redirect to admin page
+        window.location.pathname = '/admin';
+      }
+    }
+  };
+};
+
+AdminLogin.prototype.logout = function() {
   // listen to logout button
   $('#admin-logout').on('click', function(){
     var urlToCall = BASE_URL + '/admin/logout';
@@ -32,68 +96,9 @@ $(document).ready(function(){
       }
     };
   })
-});
-
-function login($form) {
-  var $formChildren = $form[0].children;
-
-  // grab children after name || type || id
-  var $formEmail = $($formChildren['email']);
-  var $formPassword = $($formChildren['password']);
-  var $loginButton = $($formChildren['admin-login']);
-  
-  // to decide when to enable tooltip
-  enableTooltip($('.after-input'), {
-    email: 'Admin email address',
-    password: 'Admin password'
-  });
-
-  // listen to login button
-  $loginButton.on('click', function() {
-    event.preventDefault();
-
-    var emailValue = $formEmail.val();
-    var passwordValue = $formPassword.val();
-
-    // when the first form child isn't an input, like an error container
-    if( ! $form.children().first().is('input') ){
-      // remove element from DOM
-      $form.children().first().remove();
-    }
-    
-    // check if input fields are filled
-    var fieldStatus = checkInputField($form);
-    
-    if( fieldStatus ){
-      // authenticate(emailValue, passwordValue);
-      var xmlHttpResult = authenticate(emailValue, passwordValue);
-      
-      // handle response
-      xmlHttpResult.onreadystatechange = function() {
-        if ( xmlHttpResult.readyState == 4 ) {
-          if ( xmlHttpResult.status == 206 ) {
-            // throw error // normally it shouldn't reach here
-            throw new Error(xmlHttpResult.response['message']);
-          }
-          else if ( xmlHttpResult.status == 403 ){
-            // show message
-            $form.children().first().before(
-              '<li class="input-error">'+xmlHttpResult.response['message']+'</li>'
-              );
-            // complain
-            throw new Error(xmlHttpResult.response['message']);
-          }
-          else {
-            // redirect to admin page
-            window.location.pathname = '/admin';
-          }
-        }
-      };
-    }
-  })
 }
 
-function authenticate(emailValue, passwordValue) {
+AdminLogin.prototype.authenticate = function(emailValue, passwordValue) {
   var urlToCall = BASE_URL + '/admin/login';
   var method = 'POST';
   var params = `email=${emailValue}&password=${passwordValue}`;
@@ -111,7 +116,7 @@ function authenticate(emailValue, passwordValue) {
   return(xmlHttp);
 }
 
-function checkInputField($form) {
+AdminLogin.prototype.checkInputField = function($form) {
   var fieldStatus = 1;
   
   // run over filtered children
@@ -143,7 +148,13 @@ function checkInputField($form) {
   return fieldStatus;
 }
 
-function enableTooltip($jqElem, objInfoMsgData){
+AdminLogin.prototype.enableTooltip = function(){
+  // to decide when to enable tooltip
+  var infoData = {
+    email: 'Admin email address',
+    password: 'Admin password'
+  };
+
   // implement tooltip independently over each info-icon
   $.each($('.after-input'), function(index, domElem){
     // store jquery elem inside varibles
@@ -154,7 +165,7 @@ function enableTooltip($jqElem, objInfoMsgData){
     var $infoMsgRef = $(domElem.children[1]);
 
     // build info message
-    $infoMsgRef.text(objInfoMsgData[inpName]);
+    $infoMsgRef.text(infoData[inpName]);
 
     $infoIcon.on("mouseover",function(){
       $infoMsgRef.css('visibility', 'visible');

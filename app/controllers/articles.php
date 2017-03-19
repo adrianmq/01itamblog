@@ -6,9 +6,9 @@ class Articles {
     $articlesModel = new ArticlesModel();
     $articles = $articlesModel->getArticles();
     // print_r($articles);
-    // $pageTitle = 'Articles Page';
-    // $pageContent = 'articlesView.php';
-    // include VIEWS . "layoutView.php";
+    $pageTitle = 'Articles Page';
+    $pageContent = 'articlesView.php';
+    include VIEWS . "layoutView.php";
   }
 }
 
