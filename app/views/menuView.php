@@ -1,5 +1,5 @@
 <div class="menu">
-    <div class="column"><a href="home">Home</a></div>
-    <div class="column"><a href="articles">Articles</a></div>
-    <div class="column"><a href="contact">Contact</a></div>
+    <div class="column"><a href="<?php echo BASE_URL?>home">Home</a></div>
+    <div class="column"><a href="<?php echo BASE_URL?>articles">Articles</a></div>
+    <div class="column"><a href="<?php echo BASE_URL?>contact">Contact</a></div>
 </div>
