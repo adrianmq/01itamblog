@@ -3,9 +3,9 @@
 /*glabal Admin*/
 /*glabal AdminLogin*/
 window.onload = function(){
-  console.log('main');
   var admin = new Admin();
   var adminLogin = new AdminLogin();
+  var articlesView = new ArticlesView();
 
   var $pathname = window.location.pathname;
   // request only when path is accessed
@@ -17,4 +17,9 @@ window.onload = function(){
   if($pathname.match('^/admin/login$')){
     adminLogin.viewHandler();
   }
+  
+  if($pathname.match('^/articles$')){
+    articlesView.tableHeader();
+  }
+  
 };
