@@ -20,3 +20,24 @@ function modVisibForNextElem(jQelem, elem, prop){
     nextField.css('visibility', prop);
   }
 }
+
+// method to check whether input is numeric
+function isNumeric(n) {
+  return !isNaN(parseFloat(n)) && isFinite(n);
+}
+
+// numeric sort
+function numericSortAoA(arr, index, type) {
+  if ( type === 'asc' ) {
+    arr.sort(function(a, b){ return a[index] - b[index]; });
+  }
+  else if ( type === 'desc' ) {
+    arr.sort(function(a, b){ return b[index] - a[index]; });
+  }
+}
+
+
+
+
+
+

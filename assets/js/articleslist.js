@@ -1,12 +1,12 @@
 /*global $*/
 /*global BASE_URL*/
+/*global isNumeric*/
+/*global numericSortAoA*/
 function ArticlesView(){
   this.url = BASE_URL + '/articles';
 };
 
 ArticlesView.prototype.tableHeader = function() {
-  // use only javascript vanilla
-  // use only javascript vanilla
   // use only javascript vanilla
   var articlesView = this;
   var constants = {
@@ -14,36 +14,42 @@ ArticlesView.prototype.tableHeader = function() {
     title: 'article-title',
     content: 'article-content',
   };
+  var headerTypes = Object.keys(constants);
+  
+  // get references to table data
   var tableData = articlesView.getTableData();
+  var tableHeader = tableData.headerData;
   var tableDataClone = tableData;
-  var searchInput = tableData.table[0].parentNode.previousElementSibling;
-  var header = tableData.headerData;
+  
+  // get reference to search input by traversing DOM
+  var searchInput = tableData.tableRef[0].parentNode.previousElementSibling;
 
-  header[constants.id].elem.addEventListener('click', function(){
-    var cName = header[constants.id].name;
-    var cNumber = header[constants.id].number;
-    var sortResult = articlesView.tableSort(cNumber, cName, tableData.contentData);
-    articlesView.rearrangeData(tableData, sortResult.sortedData);
-  });
+  // set event listers for table headers for sorting table data asc/desc
+  headerTypes.forEach(function(type, i) {
+    var cValue = constants[type];
+    var elemRef = tableHeader[cValue].elem;
+    elemRef.addEventListener('click', function(){
+      // mark it as clicked
+      var sortType = 'asc';
+      var state = elemRef.getAttribute('data-sort');
+      if ( !state || state == 1 ) {
+        elemRef.setAttribute('data-sort', 0);
+        sortType = 'desc';
+      }
+      else {
+        elemRef.setAttribute('data-sort', 1);
+      }
 
-  header[constants.title].elem.addEventListener('click', function(){
-    var cName = header[constants.title].name;
-    var cNumber = header[constants.title].number;
-    var sortResult = articlesView.tableSort(cNumber, cName, tableData.contentData);
-    articlesView.rearrangeData(tableData, sortResult.sortedData);
-  });
-
-  header[constants.content].elem.addEventListener('click', function(){
-    var cName = header[constants.content].name;
-    var cNumber = header[constants.content].number;
-    var sortResult = articlesView.tableSort(cNumber, cName, tableData.contentData);
-    articlesView.rearrangeData(tableData, sortResult.sortedData);
+      var cName = tableHeader[cValue].name;
+      var cNumber = tableHeader[cValue].number;
+      var sortResult = articlesView.tableSort(cNumber, cName, tableData.contentData, sortType);
+      articlesView.rearrangeData(tableData, sortResult.sortedData);
+    });
   });
   
   searchInput.addEventListener('keypress', function(e){
-    e.preventDefault;
     tableData = tableDataClone;
-    var cNumber = header[constants.title].number;
+    var cNumber = tableHeader[constants.title].number;
     var inputValue = searchInput.value + e.key;
     if ( inputValue ) {
       var searchResult = articlesView.searchInput(inputValue, cNumber, tableData.contentData);
@@ -57,9 +63,9 @@ ArticlesView.prototype.getTableData = function() {
   var tableHeaderData = {};
   var tableData = [];
 
-  var table = document.getElementsByClassName('articles-view-table');
-  var tableHeader = table[0].getElementsByTagName('thead');
-  var tableHeaderRow = tableHeader[0].firstElementChild;
+  var tableRef = document.getElementsByClassName('articles-view-table');
+  var tableHeaderRef = tableRef[0].getElementsByTagName('thead');
+  var tableHeaderRow = tableHeaderRef[0].firstElementChild;
 
   // build object as { name: elem }
   for (var i = 1; i < tableHeaderRow.children.length; i++) {
@@ -72,8 +78,8 @@ ArticlesView.prototype.getTableData = function() {
     };
   }
   
-  var tableContent = table[0].getElementsByTagName('tbody');
-  var tableContentRows = tableContent[0].children;
+  var tableContentRef = tableRef[0].getElementsByTagName('tbody');
+  var tableContentRows = tableContentRef[0].children;
   // build AoA with each row data
   for (var i = 0; i < tableContentRows.length; i++) {
     var fieldsData = [];
@@ -88,48 +94,41 @@ ArticlesView.prototype.getTableData = function() {
   }
 
   return {
-    table: table,
-    tableHeader: tableHeader,
-    tableContent: tableContent,
+    tableRef: tableRef,
+    tableHeaderRef: tableHeaderRef,
+    tableContentRef: tableContentRef,
     headerData: tableHeaderData,
     contentData: tableData
   };
 };
 
-ArticlesView.prototype.tableSort = function(cNumber, cName, data) {
-  var indexRef = cNumber - 1;
+ArticlesView.prototype.tableSort = function(cNumber, cName, data, type) {
+  var indexRef = cNumber - 1; // ignore first column
   var sortedData = data;
-  var isNumeric = function(n) {
-    return !isNaN(parseFloat(n)) && isFinite(n);
-  }
   var firstRowData = data[0][indexRef];
 
   // check what type of data is inside column
   // assume that the data type from first column applies to all rows
   if ( isNumeric(firstRowData) ) {
-    sortedData.sort(function(a, b) {
-      return a[indexRef] - b[indexRef];
-    });
+    numericSortAoA(sortedData, indexRef, type);
   }
   else {
-    sortedData.sort(function(a, b) {
-      if(a[indexRef] < b[indexRef]) return -1;
-      if(a[indexRef] > b[indexRef]) return 1;
-      return 0;
-    })
+    sortedData.sort();
+    if ( type === 'desc' ) sortedData.reverse();
   }
 
   return {
     cNumber: cNumber,
     cName: cName,
     sortedData: sortedData
-  }
+  };
 };
 
 ArticlesView.prototype.rearrangeData = function(tableData, newData) {
-  var tableContentRows = tableData.tableContent[0].children;
+  var tableContentRows = tableData.tableContentRef[0].children;
   for (var i = 0; i < tableContentRows.length; i++) {
     var rowsChildren = tableContentRows[i].children;
+    // ignore first column
     for (var j = 1; j < rowsChildren.length; j++) {
       rowsChildren[j].textContent = newData[i][j-1];
     }
@@ -137,7 +136,7 @@ ArticlesView.prototype.rearrangeData = function(tableData, newData) {
 };
 
 ArticlesView.prototype.selectData = function(cNumber, tableData, newData) {
-  var tableContent = tableData.tableContent[0];
+  var tableContent = tableData.tableContentRef[0];
   var tableContentRows = tableContent.children;
   for (var i = 0; i < tableContentRows.length; i++) {
     var row = tableContentRows[i];
