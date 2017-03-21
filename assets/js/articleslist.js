@@ -47,10 +47,10 @@ ArticlesView.prototype.tableHeader = function() {
     });
   });
   
-  searchInput.addEventListener('keypress', function(e){
+  searchInput.addEventListener('input', function(e){
     tableData = tableDataClone;
     var cNumber = tableHeader[constants.title].number;
-    var inputValue = searchInput.value + e.key;
+    var inputValue = searchInput.value;
     if ( inputValue ) {
       var searchResult = articlesView.searchInput(inputValue, cNumber, tableData.contentData);
       articlesView.selectData(cNumber, tableData, searchResult.newData);
