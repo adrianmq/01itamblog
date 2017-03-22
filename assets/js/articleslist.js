@@ -20,7 +20,7 @@ ArticlesView.prototype.tableHeader = function() {
   var tableData = articlesView.getTableData();
   var tableHeader = tableData.headerData;
   var tableDataClone = tableData;
-  
+
   // get reference to search input by traversing DOM
   var searchInput = tableData.tableRef[0].parentNode.previousElementSibling;
 
@@ -47,14 +47,12 @@ ArticlesView.prototype.tableHeader = function() {
     });
   });
   
+  // search functionality for title
   searchInput.addEventListener('input', function(e){
     tableData = tableDataClone;
     var cNumber = tableHeader[constants.title].number;
-    var inputValue = searchInput.value;
-    if ( inputValue ) {
-      var searchResult = articlesView.searchInput(inputValue, cNumber, tableData.contentData);
-      articlesView.selectData(cNumber, tableData, searchResult.newData);
-    }
+    var searchResult = articlesView.searchInput(searchInput.value, cNumber, tableData.contentData);
+    articlesView.selectData(cNumber, tableData, searchResult.newData);
   });
 };
 
@@ -146,6 +144,7 @@ ArticlesView.prototype.selectData = function(cNumber, tableData, newData) {
     for (var k = 0; k < newData.length; k++) {
       if ( newData[k][cNumber - 1] === rowField.textContent ) {
         found = true; 
+        row.classList.remove('hide');
       }
     }
     
