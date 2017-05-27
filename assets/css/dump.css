@@ -1,0 +1,49 @@
+
+.login-container{
+  margin: 5px auto 5px;
+  /*height: 305px;*/
+  height: 279px;
+  width: 100%;
+  z-index: -1;
+}
+
+.login-container-1{
+  background-image: url('https://siitamblog-adrianmq.c9users.io/assets/img/secure_coding.jpg');
+  background-size:822px 279px;
+  background-repeat:no-repeat;
+  background-color: gainsboro; 
+  /*width: 822px;*/
+  width: 100%;
+  position: relative;
+  height: 279px;
+  float: left;
+}
+
+.login-container-2{
+  width: 300px;
+  position: relative;
+  height: 100%;
+  margin-left: 520px;
+  margin-right: 0px;
+}
+
+.login-container-3{
+  /*background-image: url('https://siitamblog-adrianmq.c9users.io/assets/img/network.jpg');*/
+  /*background-size:100% 100%;*/
+  /*background-repeat:no-repeat;*/
+  background-color: gainsboro; 
+  width: 318px;
+  height: 100%;
+  float: right;
+}
+
+.admin-container{
+  background-color: #AEB6BF; 
+  /*margin: 5px auto 5px;*/
+  min-height: 300px;
+  /*height: auto;*/
+  /*height: 100%;*/
+  /*width: 318px;*/
+  width: 100%;
+  z-index: -1;
+}

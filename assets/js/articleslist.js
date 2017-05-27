@@ -158,7 +158,7 @@ ArticlesView.prototype.searchInput = function(inputValue, cNumber, data) {
   // default search after title
   var newData = [];
   var indexRef = cNumber - 1;
-  var regex = new RegExp(".+"+inputValue+".+");
+  var regex = new RegExp(".*"+inputValue+".*");
 
   for (var i = 0; i < data.length; i++) {
     var dataValue = data[i][indexRef];

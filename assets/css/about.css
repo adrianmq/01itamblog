@@ -1,0 +1,40 @@
+section.about {
+  min-height: inherit;
+  min-width: inherit;
+  background-color: gainsboro;
+}
+
+.content-background {
+  width: 86%;
+  min-height: inherit;
+  margin: 0 7% 0 7%;
+  color: #333;
+  font-size: 16px;
+  background: #fff;
+  border-left: 1px solid #e5e5ee;
+  border-right: 1px solid #e5e5ee;
+  padding: 40px 40px;
+  z-index: 1;
+}
+
+section.about div h2 {
+  font-size: 2em;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 1.3em;
+}
+
+section.about div img {
+  float: right;
+  width: 25%;
+  height: 25%;
+}
+
+.about-description {
+  display: block;
+  width: 70%;
+  height: 75%;
+  padding: 15px 25px;
+  letter-spacing: 0.05em;
+  word-spacing: 0.1em;
+}

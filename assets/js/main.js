@@ -1,7 +1,10 @@
 /*global $*/
+/*global _hQuery*/
 /*global BASE_URL*/
 /*glabal Admin*/
 /*glabal AdminLogin*/
+/*glabal ArticlesView*/
+
 window.onload = function(){
   var admin = new Admin();
   var adminLogin = new AdminLogin();
@@ -21,5 +24,9 @@ window.onload = function(){
   if($pathname.match('^/articles$')){
     articlesView.tableHeader();
   }
+  
+  console.log(_hQuery);
+
+  
   
 };

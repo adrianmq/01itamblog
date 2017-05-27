@@ -1,0 +1,49 @@
+*, :after, :before {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+html, body {
+  width: auto !important;
+  height: 100% !important;
+  overflow-x: hidden !important;
+}
+
+body {
+  margin: 0;
+  display: block;
+  color: #333;
+  background-color: #fff;
+  line-height: 1.5;
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #112233;
+    line-height: 1em;
+    font-weight: normal;
+    font-family: "roboto-black";
+    text-transform: uppercase;
+    margin: 15px 0 10px 0;
+}
+
+.main-wrapper {
+  height: 100%;
+  width: 100%;
+  left: 0;
+  right: 0;
+}
+
+.page-content {
+  min-height: 600px;
+  width: inherit;
+}

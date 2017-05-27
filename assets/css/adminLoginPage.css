@@ -1,59 +1,44 @@
+form.login-form {
+  height: inherit;
+  padding: 30px 0;
+}
+
+section.login-container input {
+  font-size: 14px;
+  margin: 10px auto 0;
+  padding: 5px;
+  height: 25px;
+  width: 250px;
+}
 
 .login-container{
   margin: 5px auto 5px;
-  /*height: 305px;*/
-  height: 279px;
+  min-height: inherit;
   width: 100%;
-  z-index: -1;
+  overflow: hidden;
+  background-color: gainsboro;
+  position: relative;
 }
 
 .login-container-1{
   background-image: url('https://siitamblog-adrianmq.c9users.io/assets/img/secure_coding.jpg');
-  background-size:822px 279px;
-  background-repeat:no-repeat;
-  background-color: gainsboro; 
-  /*width: 822px;*/
+  background-position: center center;
+  background-size: 822px 279px;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 25%;
   width: 100%;
-  position: relative;
-  height: 279px;
+  height: inherit;
   float: left;
 }
 
 .login-container-2{
-  width: 300px;
+  width: 822px;
+  height: 279px;
   position: relative;
-  height: 100%;
-  margin-left: 520px;
-  margin-right: 0px;
-}
-
-.login-container-3{
-  /*background-image: url('https://siitamblog-adrianmq.c9users.io/assets/img/network.jpg');*/
-  /*background-size:100% 100%;*/
-  /*background-repeat:no-repeat;*/
-  background-color: gainsboro; 
-  width: 318px;
-  height: 100%;
-  float: right;
-}
-
-.admin-container{
-  background-color: #AEB6BF; 
-  /*margin: 5px auto 5px;*/
-  min-height: 300px;
-  /*height: auto;*/
-  /*height: 100%;*/
-  /*width: 318px;*/
-  width: 100%;
-  z-index: -1;
-}
-
-.checkbox-articles {
-  height: 10px;
-  width: 10px;
-  padding: 0px;
-  margin: 0px;
-  font-size: 1px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 522px;
 }
 
 #admin-login{
@@ -77,7 +62,7 @@
 .after-input{
   float: right;
   position: relative;
-  margin: 10px 1px 1px 1px;
+  margin: 10px 10px 1px 1px;
 }
 
 .input-error{
@@ -118,11 +103,11 @@
 }
 
 .visible-icon {
-  background-image:url('https://siitamblog-adrianmq.c9users.io/assets/img/info-icon.png');
-  background-size:24px 24px;
-  background-repeat:no-repeat;
-  height:24px;
-  width:24px;
+  background-image: url('https://siitamblog-adrianmq.c9users.io/assets/img/info-icon.png');
+  background-size: 24px 24px;
+  background-repeat: no-repeat;
+  height: 24px;
+  width: 24px;
   z-index: -1;
 }
 
